@@ -23,11 +23,11 @@ const JobList = () => {
             <ul>
                 {jobs.map((job) => (
                     <li key={job.id}>
-                        <strong>{job.title}</strong> at {job.company} – £{job.salary?.toLocaleString(undefined, {
+                        <strong>{job.title}</strong> at {job.company} {'\u00A3'}
+                        {job.salary?.toLocaleString(undefined, {
                             minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
+                            maximumFractionDigits: 2
                         })}
-
                     </li>
                 ))}
             </ul>

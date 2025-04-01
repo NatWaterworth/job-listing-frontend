@@ -1,12 +1,13 @@
-import React from 'react';
-import JobList from './components/JobList';
+﻿import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {
     return (
-        <div className="App">
-            <h1>Job Board</h1>
-            <JobList />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Router>
     );
 }
 
