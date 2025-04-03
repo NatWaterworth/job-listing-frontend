@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import JobCard from "../components/JobCard";
+import SuggestionsDropdown from "../components/SuggestionsDropdown";
 import { filterJobs } from "../utils/jobUtils";
 
 // Sample data — move to API or mock file later
@@ -44,6 +45,8 @@ const JobList = () => {
 
             <div className="flex items-center gap-2 mb-6">
                 <div className="relative flex-grow">
+
+                    {/* Search Field */}
                     <input
                         type="text"
                         value={searchInput}
@@ -54,21 +57,15 @@ const JobList = () => {
                         placeholder="Search by title, company, or location"
                     />
 
+                    {/* Suggestions Dropdown */}
                     {showSuggestions && filteredSuggestions.length > 0 && (
-                        <ul className="absolute top-full left-0 w-full mt-1 bg-white border rounded-xl shadow z-10 max-h-60 overflow-y-auto">
-                            {filteredSuggestions.map((suggestion, index) => (
-                                <li
-                                    key={index}
-                                    onMouseDown={() => {
-                                        setSearchInput(suggestion);
-                                        setShowSuggestions(false);
-                                    }}
-                                    className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
-                                >
-                                    {suggestion}
-                                </li>
-                            ))}
-                        </ul>
+                        <SuggestionsDropdown
+                            suggestions={filteredSuggestions}
+                            onSelect={(suggestion) => {
+                                setSearchInput(suggestion);
+                                setShowSuggestions(false);
+                            }}
+                        />
                     )}
                 </div>
 
