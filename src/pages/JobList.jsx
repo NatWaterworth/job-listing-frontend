@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const jobs = [
     {
@@ -26,20 +27,25 @@ const JobList = () => {
 
             <div className="space-y-6">
                 {jobs.map((job) => (
-                    <div
+                    <Link
                         key={job.id}
-                        className="p-4 bg-white rounded-2xl shadow-md border border-gray-200"
+                        to={`/jobs/${job.id}`}
+                        className="block"
                     >
-                        <div className="flex justify-between items-center mb-2">
-                            <h2 className="text-xl font-semibold">{job.title}</h2>
-                            <span className="text-sm text-gray-500">{job.postedDate}</span>
+                        <div className="p-4 bg-white rounded-2xl shadow-md border hover:shadow-lg hover:bg-blue-50 transition-shadow duration-300">
+                            <div className="flex justify-between items-center mb-2">
+                                <h2 className="text-xl font-semibold">{job.title}</h2>
+                                <span className="text-sm text-gray-500">{job.postedDate}</span>
+                            </div>
+                            <p className="text-gray-700">{job.company}</p>
+                            <p className="text-gray-500">{job.location}</p>
+                            <p className="text-green-600 font-medium">{job.salary}</p>
                         </div>
-                        <p className="text-gray-700">{job.company}</p>
-                        <p className="text-gray-500">{job.location}</p>
-                        <p className="text-green-600 font-medium">{job.salary}</p>
-                    </div>
+                        
+                    </Link>
                 ))}
             </div>
+
         </div>
     );
 };
