@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
 import JobCard from "../components/JobCard";
 import SuggestionsDropdown from "../components/SuggestionsDropdown";
+
 import { filterJobs } from "../utils/jobUtils";
+import { useSuggestions } from "../utils/useSuggestions";
 
 // Sample data — move to API or mock file later
 const jobs = [
@@ -31,12 +34,7 @@ const JobList = () => {
 
     const filteredJobs = filterJobs(jobs, searchTerm);
 
-    const allSuggestions = [...new Set(
-        jobs.flatMap((job) => [job.title, job.company, job.location])
-    )];
-    const filteredSuggestions = allSuggestions.filter((s) =>
-        s.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    const filteredSuggestions = useSuggestions(jobs, searchInput);
 
 
     return (
