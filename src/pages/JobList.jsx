@@ -40,7 +40,7 @@ const JobList = () => {
             />
 
             <div className="space-y-6">
-                {filteredJobs.map((job) => (
+                {filteredJobs.map((job) => (                  
                     <JobCard key={job.id} job={job} />
                 ))}
             </div>
