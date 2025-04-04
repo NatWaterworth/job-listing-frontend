@@ -1,5 +1,7 @@
-import React from "react";
+ï»¿import React from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ApplicationForm from "../components/ApplicationForm";
 
 const jobs = [
     {
@@ -7,7 +9,7 @@ const jobs = [
         title: "Frontend Developer",
         company: "TechFlow",
         location: "Remote",
-        salary: "£40,000 - £50,000",
+        salary: "Â£40,000 - Â£50,000",
         postedDate: "2025-03-28",
         description: "We're looking for a skilled frontend developer to join our team...",
         requirements: "Experience with React, Tailwind, and JavaScript required."
@@ -17,7 +19,7 @@ const jobs = [
         title: "Backend Developer",
         company: "CodeWorks",
         location: "London, UK",
-        salary: "£50,000 - £60,000",
+        salary: "Â£50,000 - Â£60,000",
         postedDate: "2025-03-25",
         description: "Join our backend team to work on scalable APIs and services.",
         requirements: "Experience with Node.js, databases, and RESTful APIs."
@@ -49,6 +51,7 @@ const JobDetail = () => {
                 <h2 className="text-xl font-semibold mb-2">Requirements</h2>
                 <p>{job.requirements}</p>
             </div>
+            <ApplicationForm jobTitle={job.title} />
         </div>
     );
 };
