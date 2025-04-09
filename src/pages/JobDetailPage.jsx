@@ -51,7 +51,12 @@ const JobDetail = () => {
                 <h2 className="text-xl font-semibold mb-2">Requirements</h2>
                 <p>{job.requirements}</p>
             </div>
-            <ApplicationForm jobTitle={job.title} />
+            <Link
+                to="/apply"
+                className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            >
+                Apply Now
+            </Link>
         </div>
     );
 };
