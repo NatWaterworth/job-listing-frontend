@@ -1,7 +1,7 @@
-﻿import React from "react";
+﻿import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import ApplicationForm from "../components/ApplicationForm";
+import { UserContext } from '../context/UserContext';
+import { useNavigate } from "react-router-dom";
 
 const jobs = [
     {
@@ -30,6 +30,17 @@ const JobDetail = () => {
     const { id } = useParams();
     const job = jobs.find(job => job.id === parseInt(id));
 
+    const { savedJobs, appliedJobs, saveJob, applyToJob } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const handleSave = () => saveJob(job);
+    const handleApply = () => navigate("/apply", { state: { job } });
+
+    const isSaved = savedJobs.includes(job.id);
+    const isApplied = appliedJobs.includes(job.id);
+
+    console.log("Looking at job ID:", job.id);
+
     if (!job) {
         return <p className="p-6 text-red-600">Job not found.</p>;
     }
@@ -51,12 +62,22 @@ const JobDetail = () => {
                 <h2 className="text-xl font-semibold mb-2">Requirements</h2>
                 <p>{job.requirements}</p>
             </div>
-            <Link
-                to="/apply"
-                className="inline-block mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-            >
-                Apply Now
-            </Link>
+            <div className="flex gap-4 mt-6">
+                <button
+                    disabled={isSaved}
+                    onClick={handleSave}
+                    className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl"
+                >
+                    Save Job
+                </button>
+                <button
+                    disabled={isApplied}
+                    onClick={handleApply}
+                    className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl"
+                >
+                    Apply Now
+                </button>
+            </div>
         </div>
     );
 };
