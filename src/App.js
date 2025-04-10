@@ -11,7 +11,7 @@ export default function App() {
         <Router>
             <Navbar />
             <Routes>
-                <Route path="/jobs" element={<JobListPage />} />
+                <Route path="/" element={<JobListPage />} />
                 <Route path="/jobs/:id" element={<JobDetailPage />} />
                 <Route path="/my-jobs" element={<MyJobsPage />} />
                 <Route path="/apply" element={<ApplicationPage />} />
