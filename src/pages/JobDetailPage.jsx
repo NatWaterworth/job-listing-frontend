@@ -39,10 +39,6 @@ const JobDetail = () => {
     const isSaved = savedJobs.includes(job);
     const isApplied = appliedJobs.includes(job);
 
-    console.log("Looking at job ID:", job.id);
-    console.log("is saved:", isSaved);
-    console.log("saved list:", savedJobs);
-
     if (!job) {
         return <p className="p-6 text-red-600">Job not found.</p>;
     }
