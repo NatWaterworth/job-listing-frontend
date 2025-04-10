@@ -1,32 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import JobCard from "../components/JobCard";
 import SuggestionsDropdown from "../components/SuggestionsDropdown";
+import { fetchJobs } from '../api/api.js';
 
 import { filterJobs } from "../utils/jobUtils";
 import { useSuggestions } from "../utils/useSuggestions";
 
-// Sample data — move to API or mock file later
-const jobs = [
-    {
-        id: 1,
-        title: "Frontend Developer",
-        company: "TechFlow",
-        location: "Remote",
-        salary: "£40,000 - £50,000",
-        postedDate: "2025-03-28",
-    },
-    {
-        id: 2,
-        title: "Backend Developer",
-        company: "CodeWorks",
-        location: "London, UK",
-        salary: "£50,000 - £60,000",
-        postedDate: "2025-03-25",
-    },
-];
-
 const JobList = () => {
+
+    const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        async function fetchAllJobs() {
+            try {
+                const response = await fetchJobs();
+                setJobs(response.data);
+                console.log(jobs)
+            } catch (error) {
+                console.error('Error fetching jobs:', error.message);
+            }
+        }
+
+        fetchAllJobs();
+    }, []);
+
     const [searchInput, setSearchInput] = useState("");
     const [searchTerm, setSearchTerm] = useState("");   
 
@@ -35,7 +33,6 @@ const JobList = () => {
     const filteredJobs = filterJobs(jobs, searchTerm);
 
     const filteredSuggestions = useSuggestions(jobs, searchInput);
-
 
     return (
         <div className="p-6 max-w-5xl mx-auto">
@@ -75,7 +72,6 @@ const JobList = () => {
                     Search
                 </button>
             </div>
-
             <div className="space-y-6">
                 {filteredJobs.map((job) => (                  
                     <JobCard key={job.id} job={job} />
