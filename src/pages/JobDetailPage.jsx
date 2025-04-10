@@ -30,16 +30,18 @@ const JobDetail = () => {
     const { id } = useParams();
     const job = jobs.find(job => job.id === parseInt(id));
 
-    const { savedJobs, appliedJobs, saveJob, applyToJob } = useContext(UserContext);
+    const { savedJobs, appliedJobs, saveJob } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSave = () => saveJob(job);
     const handleApply = () => navigate("/apply", { state: { job } });
 
-    const isSaved = savedJobs.includes(job.id);
-    const isApplied = appliedJobs.includes(job.id);
+    const isSaved = savedJobs.includes(job);
+    const isApplied = appliedJobs.includes(job);
 
     console.log("Looking at job ID:", job.id);
+    console.log("is saved:", isSaved);
+    console.log("saved list:", savedJobs);
 
     if (!job) {
         return <p className="p-6 text-red-600">Job not found.</p>;
@@ -66,9 +68,12 @@ const JobDetail = () => {
                 <button
                     disabled={isSaved}
                     onClick={handleSave}
-                    className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl"
+                    className={`px-4 py-2 rounded-xl transition ${isSaved
+                            ? "bg-gray-400 cursor-not-allowed text-white"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
+                        }`}
                 >
-                    Save Job
+                    {isSaved ? "Saved" : "Job Saved"}
                 </button>
                 <button
                     disabled={isApplied}
