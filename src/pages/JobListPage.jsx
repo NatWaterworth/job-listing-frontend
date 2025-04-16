@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import JobCard from "../components/JobCard";
 import SuggestionsDropdown from "../components/SuggestionsDropdown";
-import { fetchJobs } from '../api/api.js';
+
+import { supabase } from '../supabase';
 
 import { filterJobs } from "../utils/jobUtils";
 import { useSuggestions } from "../utils/useSuggestions";
@@ -11,18 +12,23 @@ const JobList = () => {
 
     const [jobs, setJobs] = useState([]);
 
+    const fetchJobs = async () => {
+        const { data, error } = await supabase.from('jobs').select('*');
+        if (error) throw error;
+        return data;
+    };
+
     useEffect(() => {
-        async function fetchAllJobs() {
+        async function getJobs() {
             try {
-                const response = await fetchJobs();
-                setJobs(response.data);
-                console.log(jobs)
-            } catch (error) {
-                console.error('Error fetching jobs:', error.message);
+                const jobData = await fetchJobs();
+                setJobs(jobData);
+            } catch (err) {
+                console.error("Failed to load jobs:", err);
             }
         }
 
-        fetchAllJobs();
+        getJobs();
     }, []);
 
     const [searchInput, setSearchInput] = useState("");

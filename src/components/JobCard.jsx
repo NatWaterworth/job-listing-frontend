@@ -12,7 +12,7 @@ const JobCard = ({ job }) => (
             <p className="text-gray-700">{toTitleCase(job.company)}</p>
             <p className="text-gray-500">{toTitleCase(job.location)}</p>
             <p className="text-green-600 font-medium">
-                &pound;{job.salary?.toLocaleString(undefined, {
+                {job.salary?.toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 2,
                 })}

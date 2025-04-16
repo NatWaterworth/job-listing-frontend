@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { fetchJobs } from '../api/api.js';
+import { supabase } from '../supabase';
 
 const JobList = () => {
     const [jobs, setJobs] = useState([]);
 
+    const fetchJobs = async () => {
+        const { data, error } = await supabase.from('jobs').select('*');
+        if (error) throw error;
+        return data;
+    };
+
     useEffect(() => {
-        async function fetchAllJobs() {
+        async function getJobs() {
             try {
-                const response = await fetchJobs();
-                setJobs(response.data);
-            } catch (error) {
-                console.error('Error fetching jobs:', error.message);
+                const jobData = await fetchJobs();
+                setJobs(jobData);
+            } catch (err) {
+                console.error("Failed to load jobs:", err);
             }
         }
 
-        fetchAllJobs();
+        getJobs();
     }, []);
 
     return (
