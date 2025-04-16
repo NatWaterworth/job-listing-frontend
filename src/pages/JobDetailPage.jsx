@@ -2,29 +2,17 @@
 import { useParams } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from "react-router-dom";
-import { fetchJobs } from '../api/api.js';
+import { fetchJobById } from "../services/supabaseJobs";
 import JobDetails from "../components/JobDetails";
 
 const JobDetail = () => {
     const { id } = useParams();
 
-    const [jobs, setJobs] = useState([]);
+    const [job, setJob] = useState([]);
 
     useEffect(() => {
-        async function fetchAllJobs() {
-            try {
-                const response = await fetchJobs();
-                setJobs(response.data);
-                console.log(jobs)
-            } catch (error) {
-                console.error('Error fetching jobs:', error.message);
-            }
-        }
-
-        fetchAllJobs();
-    }, []);
-
-    const job = jobs.find(job => job.id === parseInt(id));
+        fetchJobById(id).then(setJob).catch(console.error);
+    }, [id]);
 
     const { savedJobs, appliedJobs, saveJob } = useContext(UserContext);
     const navigate = useNavigate();
