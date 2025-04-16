@@ -4,25 +4,22 @@ import JobCard from "../components/JobCard";
 import SuggestionsDropdown from "../components/SuggestionsDropdown";
 
 import { supabase } from '../supabase';
-
 import { filterJobs } from "../utils/jobUtils";
 import { useSuggestions } from "../utils/useSuggestions";
 
 const JobList = () => {
 
     const [jobs, setJobs] = useState([]);
-
-    const fetchJobs = async () => {
-        const { data, error } = await supabase.from('jobs').select('*');
-        if (error) throw error;
-        return data;
-    };
+    const [searchInput, setSearchInput] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showSuggestions, setShowSuggestions] = useState(false);
 
     useEffect(() => {
         async function getJobs() {
             try {
-                const jobData = await fetchJobs();
-                setJobs(jobData);
+                const { data, error } = await supabase.from("jobs").select("*");
+                if (error) throw error;
+                setJobs(data);
             } catch (err) {
                 console.error("Failed to load jobs:", err);
             }
@@ -31,13 +28,7 @@ const JobList = () => {
         getJobs();
     }, []);
 
-    const [searchInput, setSearchInput] = useState("");
-    const [searchTerm, setSearchTerm] = useState("");   
-
-    const [showSuggestions, setShowSuggestions] = useState(false);
-
     const filteredJobs = filterJobs(jobs, searchTerm);
-
     const filteredSuggestions = useSuggestions(jobs, searchInput);
 
     return (
