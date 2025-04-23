@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Job Listing Platform 🧑‍💻
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack job listing platform built with **React** and **Supabase**, featuring modern UI styling with **Tailwind CSS**. The project also includes an optional **.NET Core Web API** backend for enterprise extensions or self-hosted deployments.
 
-## Available Scripts
+## 🌐 Live Demo
+[👉 View the live site here](https://job-listing-frontend-one.vercel.app/) <!-- Replace with actual deployed URL -->
 
-In the project directory, you can run:
+## 📁 Features
 
-### `npm start`
+- 🔍 **Search & Suggestions** — Search jobs by title, company, or location with instant suggestions.
+- 📄 **Job Detail View** — View detailed information about a job with formatted salary and posted date.
+- 💾 **Save & Apply** — Save jobs or apply directly, with stateful management using `useContext`.
+- 📄 **Application Form** — Submit an application with validation and optional file uploads.
+- 👤 **My Jobs** — View saved and applied jobs using tabs.
+- 🧐 **Smart UI** — Responsive and clean UI with Tailwind CSS utility classes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Frontend   | Backend (Optional) | Database        | Styling       |
+|------------|-------------------|------------------|---------------|
+| React      | ASP.NET Core Web API | Supabase (PostgreSQL) | Tailwind CSS |
 
-### `npm test`
+## 🚀 Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Clone the Repository
 
-### `npm run build`
+```bash
+git clone https://github.com/NatWaterworth/job-listing-frontend.git
+cd job-listing-frontend
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Install Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Setup Supabase
 
-### `npm run eject`
+- Create a project at [supabase.io](https://supabase.io)
+- Set up your database tables (`jobs`, `applications`, etc.)
+- Enable Row Level Security (RLS) and add appropriate policies
+- Grab your project URL and public anon key and set it in `supabase.js`:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```js
+import { createClient } from '@supabase/supabase-js'
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export const supabase = createClient("YOUR_SUPABASE_URL", "YOUR_SUPABASE_ANON_KEY")
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Run the App
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
+## 📄 License
 
-## Learn More
+This project is open-source and available under the [MIT License](LICENSE).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
