@@ -20,8 +20,8 @@ const JobDetail = () => {
     const handleSave = () => saveJob(job);
     const handleApply = () => navigate("/apply", { state: { job } });
 
-    const isSaved = savedJobs.includes(job);
-    const isApplied = appliedJobs.includes(job);
+    const isSaved = savedJobs.some(j => j.id === job.id);
+    const isApplied = appliedJobs.some(j => j.id === job.id);
 
     if (!job) {
         return <p className="p-6 text-red-600">Job not found.</p>;
@@ -46,9 +46,12 @@ const JobDetail = () => {
                 <button
                     disabled={isApplied}
                     onClick={handleApply}
-                    className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl"
+                    className={`px-4 py-2 rounded-xl transition ${isApplied
+                        ? "bg-gray-400 cursor-not-allowed text-white"
+                        : "bg-green-600 text-white hover:bg-green-700"
+                        }`}
                 >
-                    Apply Now
+                    {isApplied ? "Applied" : "Apply Now"}
                 </button>
             </div>
         </div>
