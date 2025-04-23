@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../context/UserContext";
+import { useLocation } from "react-router-dom";
+import { fetchJobById } from "../services/supabaseJobs";
 
 const ApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +15,11 @@ const ApplicationForm = () => {
     const [cvFile, setCvFile] = useState(null);
     const [coverLetterFile, setCoverLetterFile] = useState(null);
 
+    const { applyToJob } = useContext(UserContext);
+    const location = useLocation();
+    const job = location.state?.job;
+
+    const handleApply = () => applyToJob(job);
 
     const validate = () => {
         const newErrors = {};
@@ -111,6 +119,7 @@ const ApplicationForm = () => {
 
                 <button
                     type="submit"
+                    onClick={handleApply}
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                 >
                     Submit Application

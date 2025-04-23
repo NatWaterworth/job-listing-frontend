@@ -7,16 +7,20 @@ const UserProvider = ({ children }) => {
     const [appliedJobs, setAppliedJobs] = useState([]);
 
     const saveJob = (job) => {
-        if (!savedJobs.find(j => j.id === job.id)) {
+        if (!findJob(job, savedJobs)) {
             setSavedJobs([...savedJobs, job]);
         }
     };
 
     const applyToJob = (job) => {
         console.log("applying to Job: ", job);
-        if (!appliedJobs.find(j => j.id === job.id)) {
+        if (!findJob(job, appliedJobs)) {
             setAppliedJobs([...appliedJobs, job]);
         }
+    };
+
+    const findJob = (job, jobs) => {
+        jobs.find(j => j.id === job.id)
     };
 
     useEffect(() => {
